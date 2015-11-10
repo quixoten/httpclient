@@ -317,7 +317,7 @@ unless defined?(SSLSocket)
         if File.directory?(file_or_dir_or_string)
           warn('directory not yet supported')
         else
-          data = if File.exist?(file_or_dir_or_string) ? File.read(file_or_dir_or_string) : file_or_dir_or_string
+          data = File.exist?(file_or_dir_or_string) ? File.read(file_or_dir_or_string) : file_or_dir_or_string
           pem = nil
           data.each_line do |line|
             case line

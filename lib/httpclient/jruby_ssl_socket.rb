@@ -312,13 +312,14 @@ unless defined?(SSLSocket)
         @size = 0
       end
 
-      def add(file_or_dir)
-        return if file_or_dir == :default
-        if File.directory?(file_or_dir)
+      def add(file_or_dir_or_string)
+        return if file_or_dir_or_string == :default
+        if File.directory?(file_or_dir_or_string)
           warn('directory not yet supported')
         else
+          data = if File.exist?(file_or_dir_or_string) ? File.read(file_or_dir_or_string) : file_or_dir_or_string
           pem = nil
-          File.read(file_or_dir).each_line do |line|
+          data.each_line do |line|
             case line
             when /-----BEGIN CERTIFICATE-----/
               pem = ''
